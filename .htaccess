@@ -1,0 +1,36 @@
+# <IfModule mod_rewrite.c>
+# <IfModule mod_negotiation.c>
+#     Options -MultiViews
+# </IfModule>
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} -d [OR]
+# RewriteCond %{REQUEST_FILENAME} -f
+# RewriteRule ^ ^$1 [N]
+# RewriteCond %{REQUEST_URI} (\.\w+$) [NC]
+# RewriteRule ^(.*)$ public/$1 
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^ server.php
+
+# <IfModule mod_rewrite.c>
+# RewriteEngine On
+# RewriteRule ^(.*)$ public/$1 [L]
+# </IfModule>
+
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+    RewriteEngine On
+    RewriteBase /ebay_description/
+
+    # Redirect everything to the public folder
+    RewriteCond %{REQUEST_URI} !^/ebay_description/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Handle front controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ public/index.php [L]
+</IfModule>
